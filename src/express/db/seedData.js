@@ -1,4 +1,6 @@
-// code to build and initialize DB goes here
+const bcrypt = require('bcryptjs');
+const SALT_COUNT = 10;
+
 const {
   client,
   // other db methods
@@ -6,18 +8,19 @@ const {
 
 async function rebuildDB() {
   try {
-    await client.query(/*sql*/`
+    await client.query(`
       DROP TABLE IF EXISTS users;
     `);
 
-    await client.query(/*sql*/`
+    await client.query(`
       CREATE TABLE users(
         id  SERIAL PRIMARY KEY, 
-        username VARCHAR(255) UNIQUE NOT NULL, 
+        username VARCHAR(255) UNIQUE NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL, 
         password VARCHAR(255) NOT NULL
       );
-    `)    // drop tables in correct order
-    // build tables in correct order
+
+    `)   
   } catch (error) {
     throw error
   }
@@ -27,15 +30,16 @@ async function seedData() {
   try {
 
   const users = [
-    { username: "testuser", password: "testuser999" }
+    { username: "testuser", password: "testuser999", email: "testuser@test.com"}
   ];
 
   for(const user of users) {
-    await client.query(/*sql*/`
+    const hashed = await bcrypt.hash(user.password, SALT_COUNT);
+    await client.query(`
       INSERT INTO users
-      (username, password)
-      VALUES ($1, $2);
-    `,[user.username, user.password]);
+      (username, password, email)
+      VALUES ($1, $2, $3);
+    `,[user.username, hashed, user.email]);
   }
 
   // create useful starting data
