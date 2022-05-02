@@ -32,7 +32,10 @@ apiRouter.use(async (req, res, next) => {
 });
 
 // sub-routers here
-const usersRouter = require('./subRouters/usersRouters');
+const usersRouter = require('./subRouters/usersRouter');
 apiRouter.use('/users', usersRouter);
+
+const chirpsRouter = require('./subRouters/chirpsRouter');
+apiRouter.use('/chirps', chirpsRouter);
 
 module.exports = apiRouter;

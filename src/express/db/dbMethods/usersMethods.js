@@ -21,7 +21,6 @@ async function getUserById(id) {
   return user;
 }
 
-
 module.exports = {
   getUserByEmail,
   getUserById
