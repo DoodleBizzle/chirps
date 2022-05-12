@@ -38,4 +38,9 @@ apiRouter.use('/users', usersRouter);
 const chirpsRouter = require('./subRouters/chirpsRouter');
 apiRouter.use('/chirps', chirpsRouter);
 
+apiRouter.use((error, req, res, next) => {
+  console.error(error);
+  res.send({name: error.name, message: error.message})
+})
+
 module.exports = apiRouter;

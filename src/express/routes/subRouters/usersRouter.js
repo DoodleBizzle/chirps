@@ -23,12 +23,12 @@ usersRouter.post("/login", async (req, res, next) => {
 
   try {
     const user = await getUserByEmail(email);
-
     if (!user) {
       next({
         name: "IncorrectCredentialsError",
         message: "Email or Password is incorrect"
       });
+      return
     };
 
     const hashed = user.password

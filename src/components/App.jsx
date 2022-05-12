@@ -1,23 +1,26 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import {Switch} from 'react-router';
+import { Switch } from 'react-router';
 import NavBar from './NavBar';
 import Chirps from './Chirps';
 import Login from './Login';
+import AuthProvider from './AuthProvider';
 
 const App = () => {
 
   return (
-    <Router>
-      <NavBar/>
+    <AuthProvider>
+      <Router>
+        <NavBar />
         <Switch>
           <Route exact path="/">
-            <Chirps/>
+            <Chirps />
           </Route>
           <Route path="/login">
-            <Login/>
+            <Login />
           </Route>
         </Switch>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
