@@ -1,14 +1,26 @@
-import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Switch } from 'react-router';
+import NavBar from './NavBar';
+import Chirps from './Chirps';
+import Login from './Login';
+import AuthProvider from './AuthProvider';
 
-
-// This is just a sample App component, replace it with your own.
 const App = () => {
 
-
   return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-    </div>
+    <AuthProvider>
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Chirps />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

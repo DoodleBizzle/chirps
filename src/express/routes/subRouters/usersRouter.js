@@ -6,11 +6,11 @@ const { getUserByEmail } = require('../../db/dbMethods/usersMethods');
 const {requireUser} = require('../utils')
 
 usersRouter.use((req, res, next) => {
-  console.log("A request is being mad to /users");
+  console.log("A request is being made to /users");
   next();
 });
 
-usersRouter.post("/login", requireUser, async (req, res, next) => {
+usersRouter.post("/login", async (req, res, next) => {
   const {email, password } =req.body;
 
   if(!email || !password) {
@@ -23,12 +23,12 @@ usersRouter.post("/login", requireUser, async (req, res, next) => {
 
   try {
     const user = await getUserByEmail(email);
-
     if (!user) {
       next({
         name: "IncorrectCredentialsError",
         message: "Email or Password is incorrect"
       });
+      return
     };
 
     const hashed = user.password
@@ -44,3 +44,5 @@ usersRouter.post("/login", requireUser, async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = usersRouter
