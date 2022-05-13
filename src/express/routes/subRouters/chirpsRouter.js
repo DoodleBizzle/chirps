@@ -11,7 +11,7 @@ chirpsRouter.get("/", async (req, res, next) => {
   
   try {
     
-    const chirps = getAllChirps();
+    const chirps = await getAllChirps();
     res.send(chirps);
 
   } catch (error) {

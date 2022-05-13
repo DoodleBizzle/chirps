@@ -4,9 +4,9 @@ const NavBar = () => {
 
   return (
     <>
-      <nav >
-        <NavLink to='/'>Chirps</NavLink>
-        <NavLink to='/login'>Login</NavLink>
+      <nav className="nav">
+        <NavLink className="nav-link" to='/'>Chirps</NavLink>
+        <NavLink className="nav-link" to='/login'>Login</NavLink>
       </nav>
     </>
   )
