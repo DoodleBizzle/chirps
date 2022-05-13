@@ -66,6 +66,14 @@ async function seedData() {
     { username: "testuser", password: "testuser999", email: "testuser@test.com"},
   ];
 
+  const chirps = [
+    {author_id: 1, chirp: "Hello World! Have a great day everyone." },
+    {author_id: 2, chirp: "Cheese cake is amazing. who doesn't love cheese cake" },
+    {author_id: 3, chirp: "I am the master tester. There isn't anything i don't test" },
+    {author_id: 1, chirp: "Love, Laugh, Live" },
+
+  ]
+
   for(const user of users) {
     const hashed = await bcrypt.hash(user.password, SALT_COUNT);
     await client.query(`
@@ -73,6 +81,14 @@ async function seedData() {
       (username, password, email)
       VALUES ($1, $2, $3);
     `,[user.username, hashed, user.email]);
+  }
+
+  for(const chirp of chirps) {
+    await client.query(`
+      INSERT INTO chirps
+      (author_id, chirp)
+      VALUES ($1, $2);
+    `,[chirp.author_id, chirp.chirp])
   }
 
   // create useful starting data
