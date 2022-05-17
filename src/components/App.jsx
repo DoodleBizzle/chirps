@@ -4,22 +4,25 @@ import NavBar from './NavBar';
 import Chirps from './Chirps';
 import Login from './Login';
 import AuthProvider from './AuthProvider';
+import ChirpsProvider from './ChirpsProvider';
 
 const App = () => {
 
   return (
     <AuthProvider>
-      <Router>
-        <NavBar />
-        <Switch>
-          <Route exact path="/">
-            <Chirps />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-        </Switch>
-      </Router>
+      <ChirpsProvider>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route exact path="/">
+              <Chirps />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+          </Switch>
+        </Router>
+      </ChirpsProvider>
     </AuthProvider>
   );
 }
